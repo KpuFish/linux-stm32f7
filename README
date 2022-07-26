@@ -6,14 +6,23 @@ Steps to make the uImage :
 
 1) use `make stm32f746_disco_defconfig' to configure a kernel configuration with
 support following STM32 IPs: USART, LTDC (framebuffer).
+
 2) `sudo tar xf initdir.tar', to extract initdir.tar to initdir directory.
  Note: use `sudo' to ensure `tar' will succesfull create dev nodes.
+
 3) `export ARCH=arm'
-4) `export CROSS_COMPILE=arm-uclinuxeabi-'
+4) `export CROSS_COMPILE=arm-uclinuxeabi-' -> CROSS_COMPILE=arm-uclinuxeabi-gcc
  Note: arm-uclinuxeabi-* toolchain may be in your path.
  Note: arm-uclinuxeabi- toolchain provided by sourcery in link[1]
+ Note: just register to the bashrc   using gedit ~/.bashrc command
+
 5) `make', to compile kernel
+ Note: make menuconfig    before build and install the package on menuconfig
+ 'make stm32f746_disco_defconfig'  will be reflected in config file
+ 
 6) to create loadable uImage:
+#install mkimage package
+
    `mkimage -A arm -a 0xc0008000 -e 0xc0008001 -n 'Linux kernel0' -C none -T kernel -d arch/arm/boot/Image networking.uImage'
 
 
